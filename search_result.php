@@ -66,7 +66,7 @@ if(is_null($showpw)) {
 </div>
 
       <div class="inputform">
-      <form action="fpm2_search.php" method="POST" id="fpm2_search">
+      <form action="search.php" method="POST" id="fpm2_search">
       <dl>
       <dt><label for="keyid">GnuPG Key ID:</label></dt><dd><input type="text" name="keyid" size="40" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8"); ?>" onfocus="clearForm();"></dd>
           <dt></dt><dd>After the form submission, please type your passphrase when your GnuPG key agent brings you up a passphrase entry form.</dd>
