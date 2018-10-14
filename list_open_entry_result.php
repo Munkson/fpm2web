@@ -19,12 +19,24 @@ if(is_null($showpw)) {
               document.forms['passwdform'].elements['passwd'].setAttribute('type', 'text');
           } else {
               document.forms['passwdform'].elements['passwd'].setAttribute('type', 'password');
-          }i
+          }
+          return true;
+      }
+      function initForm() {
+          if (document.forms['fpm2_update'].elements['keyid'].value === "") {
+              document.forms['fpm2_update'].elements['keyid'].value = '<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>';
+          }
+          return true;
+      }
+      function clearForm() {
+          if (document.forms['fpm2_update'].elements['keyid'].value === "<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>") {
+              document.forms['fpm2_update'].elements['keyid'].value = '';
+          }
           return true;
       }
 </script>
 </head>
-<body>
+<body onload="initForm();">
   <img src="head_banner.jpg" alt="A bridge from FPM2 to PHP&amp;GnuPG" ><br>
   <h1 class="software_name">FPM2 Web</h1>
   <h2 class="software_function"><?= htmlspecialchars($appTitle, ENT_HTML5, "UTF-8") ?></h2>
@@ -38,9 +50,9 @@ if(is_null($showpw)) {
     <p>The password management record entries: </p>
 	<dl>
 	<dt>Title</dt>
-	<dd><?= htmlspecialchars($a['title'], ENT_HTML5, "UTF-8") ?></dd>
+	<dd><?= htmlspecialchars($a['title'], ENT_HTML5, 'UTF-8') ?></dd>
 	<dt>Category</dt>
-	<dd><?= htmlspecialchars($a['category'], ENT_HTML5, "UTF-8") ?></dd>
+	<dd><?= htmlspecialchars($a['category'], ENT_HTML5, 'UTF-8') ?></dd>
 	<dt>User</dt>
 	<dd><input id="user" type="text" value="<?= htmlspecialchars($a['user'], ENT_HTML5, "UTF-8") ?>"> &nbsp;</dd>
 	<dt>Password</dt>
@@ -55,5 +67,21 @@ if(is_null($showpw)) {
 
     </div>
 
-</body>
+
+      <div class="inputform">
+      <form action="open_update_entry_form.php" method="POST" id="fpm2_update">
+      <dl>
+      <dt><label for="keyid">GnuPG Key ID:</label></dt><dd><input type="text" name="keyid" size="40" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>" onfocus="clearForm();"></dd>
+          <dt></dt><dd>After the form submission, please type your passphrase when your GnuPG key agent brings you up a passphrase entry form.</dd>
+      </dl>
+    <input type="hidden" name="title" size="40" value="<?= htmlspecialchars($a['title'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="category" size="40" value="<?= htmlspecialchars($a['category'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="user" size="40" value="<?= htmlspecialchars($a['user'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="n" size="40" value="<?= htmlspecialchars($n, ENT_HTML5, 'UTF-8') ?>" >
+      <input type="submit" name="submit" value="Edit" >
+      </form>
+      </div>
+
+<?php include 'footer.php'?>
+ </body>
 </html>

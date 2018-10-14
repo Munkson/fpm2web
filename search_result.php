@@ -46,10 +46,13 @@ if(is_null($showpw)) {
 	<th>Category</th>
 	<th>User</th>
 	<th>Password</th>
-	<th>Note</th>
+	<th>Notes</th>
+	<th>Button</th>
 	</tr>
 <?php
-    foreach ($entries as $a) { ?>
+    $i =0;
+    foreach ($entries as $a) {
+?>
 	<tr>
 	<td><?= htmlspecialchars($a['title'], ENT_HTML5, "UTF-8") ?></td>
 	<td><?= htmlspecialchars($a['category'], ENT_HTML5, "UTF-8") ?></td>
@@ -60,8 +63,14 @@ if(is_null($showpw)) {
      <td>************</td>
 <?php } ?>
 	<td><?= htmlspecialchars($a['note'], ENT_HTML5, "UTF-8") ?></td>
+	<td><form action="open_element.php" method="POST">
+        <input type="hidden" name="keyid" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>">
+        <input type="hidden" name="n" value="<?= htmlspecialchars($i, ENT_HTML5, "UTF-8") ?>">
+        <input type="submit" name="submit" value="open">
+        </form></td>
 	</tr>
-<?php } ?>
+	</tr>
+<?php $i += 1;} ?>
 	</table>
 </div>
 
@@ -82,6 +91,6 @@ if(is_null($showpw)) {
       <input type="submit" name="submit" value="Search" >
       </form>
       </div>
-
+        <?php include 'footer.php'?>
 </body>
 </html>

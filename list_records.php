@@ -42,5 +42,7 @@ $appTitle = 'FPM2 password entry list';
 <?php } ?>
 	</table>
 </div>
-</body>
+<hr>
+<div>&copy; 2018 Hiroshi Kubo, all rights reserved. </div>
+                <div>License : This software is distributed under the GNU General Public License version 3 or later.</div></body>
 </html>

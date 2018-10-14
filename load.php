@@ -6,11 +6,11 @@
 include 'class/Fpm2Xml.php';
 include 'class/GnuPGFileEndec.php';
 include 'fpm2web_config.php';
+$backupfname = $fname . $backupext;
 
 /* Section: variable setting */
 /* error meessage to be displayed in error page. */
 $error_message = '';
-$backupfname = $fname . '.bak';
 
 /* Section: request information retrieval */
 /* HTTP requst method */

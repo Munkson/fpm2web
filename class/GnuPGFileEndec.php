@@ -11,6 +11,23 @@ class GnuPGFileEndec
      * @return return the encrypted file data
      */
     
+    public function stringEnc($fcontent, $keyid) {
+        $gpg = new gnupg();
+        $c = NULL;
+        try {
+            $gpg->addencryptkey($keyid);
+            $c = $gpg->encrypt($fcontent);
+        } catch (Exception $e) {
+            throw $e;
+        }
+        return $c;
+    }
+    /**
+     * @param  string $filepath the file path to the file.
+     * @param  string $keyid GnuPG key id
+     * @return return the encrypted file data
+     */
+    
     public function fileEnc($filepath, $keyid) {
         $gpg = new gnupg();
         $c = NULL;
@@ -37,7 +54,7 @@ class GnuPGFileEndec
         $umaskback = umask();
         try {
             if (file_exists($filepath) ) {
-                error_log('File already exists. Replacing', 0);
+                error_log('File already exists. Replacing.' , 0);
                 $stat = stat($filepath);
                 if ( $stat['size'] > 0 ) {
                     error_log( "renaming $filepath -> $backupfilepath", 0);

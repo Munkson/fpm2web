@@ -47,7 +47,7 @@ class Fpm2Xml
                 $titleNode = $item->getElementsByTagName('title');
                 $categoryNode = $item->getElementsByTagName('category');
                 $userNode = $item->getElementsByTagName('user');
-                $noteNode = $item->getElementsByTagName('note');
+                $noteNode = $item->getElementsByTagName('notes');
                 #	 echo $titleNode[0]->nodeValue, PHP_EOL;
                 $titleRow[$i] = $titleNode[0]->nodeValue;
                 #	 echo $categoryNode[0]->nodeValue, PHP_EOL;
@@ -86,7 +86,7 @@ class Fpm2Xml
                 $titleNode = $item->getElementsByTagName('title');
                 $categoryNode = $item->getElementsByTagName('category');
                 $userNode = $item->getElementsByTagName('user');
-                $noteNode = $item->getElementsByTagName('note');
+                $noteNode = $item->getElementsByTagName('notes');
                 $pwNode = $item->getElementsByTagName('password');
                 #	 echo $titleNode[0]->nodeValue, PHP_EOL;
                 $e = array();
@@ -114,33 +114,37 @@ class Fpm2Xml
     /**
      * @param $fontent
      * @param $n the position of the list of the XML password entries
+     * @return array of passwordItem entries.
      */
     
     public function parseXmlGetNthStringWithP($fcontent, $n) {
         $domdoc = new DOMDocument();
         $tab = NULL;
         try {
-            $domdoc->loadXML($fcontent);
-            $i = 0;
-            $itemlist = $domdoc->getElementsByTagName('PasswordItem');
             
+            $domdoc->loadXML($fcontent);
             $tab = array();
+
+            $itemlist = $domdoc->getElementsByTagName('PasswordItem');
+
+            $i = 0;
             foreach ($itemlist as $item) {
                 $titleNode = $item->getElementsByTagName('title');
                 $categoryNode = $item->getElementsByTagName('category');
                 $userNode = $item->getElementsByTagName('user');
-                $noteNode = $item->getElementsByTagName('note');
+                $noteNode = $item->getElementsByTagName('notes');
                 $pwNode = $item->getElementsByTagName('password');
+
                 $e = array();
-                $e['title'] = $titleNode[0]->nodeValue;
-                $e['category'] = $categoryNode[0]->nodeValue;
-                $e['user'] = $userNode[0]->nodeValue;
-                if ( is_object($noteNode[0]) ) {
-                    $e['note'] = $noteNode[0]->nodeValue;
+                $e['title'] = $titleNode->item(0)->nodeValue;
+                $e['category'] = $categoryNode->item(0)->nodeValue;
+                $e['user'] = $userNode->item(0)->nodeValue;
+                if ( is_object($noteNode->item(0)) ) {
+                    $e['note'] = $noteNode->item(0)->nodeValue;
                 } else {
                     $e['note'] = '';
                 }
-                $e['password'] = $pwNode[0]->nodeValue;
+                $e['password'] = $pwNode->item(0)->nodeValue;
                 if ($n == $i) { /** Only get the Nth item */
                     array_push($tab, $e);
                 }
@@ -151,6 +155,64 @@ class Fpm2Xml
         }
 
         return $tab;
+    }
+
+
+
+    /**
+     * @param $fontent
+     * @param $n the position of the list of the XML password entries
+     * @param $ni the new value for the n th passwordItem
+     * @return replaced string of XML
+     */
+    
+    public function parseXmlReplaceNthPasswordItemByArg($fcontent, $n, $ni) {
+        $domdoc = new DOMDocument();
+        $tab = NULL;
+        try {
+            
+            $domdoc->loadXML($fcontent);
+            $tab = array();
+
+            $itemlist = $domdoc->getElementsByTagName('PasswordItem');
+
+            $i = 0;
+            foreach ($itemlist as $item) {
+                if ($n == $i) { /** Only change the Nth item */
+                    $titleNode = $item->getElementsByTagName('title');
+                    $categoryNode = $item->getElementsByTagName('category');
+                    $userNode = $item->getElementsByTagName('user');
+                    $noteNode = $item->getElementsByTagName('notes');
+                    $passwordNode = $item->getElementsByTagName('password');
+
+                    $newTitleElement = $domdoc->createElement('title',  $ni['title']);
+                    $newCategoryElement = $domdoc->createElement('category',  $ni['category']);
+                    $newUserElement = $domdoc->createElement('user',  $ni['user']);
+                    $newPasswordElement = $domdoc->createElement('password',  $ni['password']);
+                    $newNoteElement = $domdoc->createElement('notes',  $ni['note']);
+
+                    $oldTitleNode = $titleNode->item(0);
+                    $item->replaceChild($newTitleElement, $oldTitleNode);
+                    $oldCategoryNode = $categoryNode->item(0);
+                    $item->replaceChild($newCategoryElement, $oldCategoryNode);
+                    $oldUserNode = $userNode->item(0);
+                    $item->replaceChild($newUserElement, $oldUserNode);
+                    $oldPasswordNode = $passwordNode->item(0);
+                    $item->replaceChild($newPasswordElement, $oldPasswordNode);
+                    $oldNoteNode = $noteNode->item(0);
+                    if (is_object($oldNoteNode)) {
+                        $item->replaceChild($newNoteElement, $oldNoteNode);
+                    } else {
+                        $item->appendChild($newNoteElement);
+                    }
+                }
+                $i+=1;
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return $domdoc->saveXML();
     }
 }
 
