@@ -74,13 +74,16 @@ try {
             $mismatch_warning = TRUE;
             foreach ($tmpentries as $a) {
                 $pos = strripos($a['title'], $title);
-                if (is_int($pos) && $pos >= 0 && strlen($a['title']) == strlen('title')) {
+                if (is_int($pos) && $pos >= 0 && strlen($a['title']) == strlen($title)) {
                     $pos = strripos($a['user'], $user);
-                    if (is_int($pos) && $pos >= 0 && strlen($a['user']) == strlen('user')) {
+                    if (is_int($pos) && $pos >= 0 && strlen($a['user']) == strlen($user)) {
                         $mismatch_warning = FALSE;
                     }
                 }
                 array_push($entries, $a);
+            }
+            if ($mismatch_warning) {
+                array_push($error_messages,'The entry must be changed.');
             }
         } else {
             if (!$r[1]) {
