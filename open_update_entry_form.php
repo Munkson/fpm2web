@@ -64,19 +64,15 @@ try {
             /** Check if the nth entry has the same title and user id */
             $mismatch_warning = TRUE;
             foreach ($tmpentries as $a) {
-                echo $title, strlen($title);
-                echo $a['title'], strlen($a['title']);
-                $pos = strripos($a['title'], $title);
-                if (is_int($pos) && $pos >= 0 && strlen($a['title']) == strlen($title)) {
-                    $pos = strripos($a['user'], $user);
-                    if (is_int($pos) && $pos >= 0 && strlen($a['user']) == strlen($user)) {
+                $pwentry = $a;
+                if ((empty($a['title']) && empty($title)) || ($a['title'] == $title)) {
+                    if ((empty($a['user']) && empty($user)) || ($a['user'] == $user)) {
                         $mismatch_warning = FALSE;
-                        $pwentry = $a;
                         break;
                     }
                 }
             }
-            echo $pwentry['title'];
+
             if ($mismatch_warning) {
                 array_push($error_messages,'The entry must be changed.');
             }
