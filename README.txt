@@ -29,6 +29,9 @@ The author's configuration file deployed under the /etc/apache2/site-enabled/ di
                 RMode stat
         </IfModule>
 </Directory>
+<Directory /home/hkubo/public_html/fpm2web/data>
+	   Order Allow,Deny
+</Directory>
 
 Entry point URL: http://localhost/~(user id)/fpm2web/load.php
 
