@@ -79,9 +79,11 @@
       <form id="showpwform">
     <label for="passwd">Show Password?: </label><input type="checkbox" name="showpw" value="1" id="showpw" onchange="switchPwVisiblity();">
       </form>
-
     </div>
-        <?php include 'footer.php'?>
+
+     <hr>
+
+<?php include 'footer.php'?>
          </div>
 </body>
 </html>

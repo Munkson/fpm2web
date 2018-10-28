@@ -139,10 +139,10 @@ try {
                 
                 
                 $r = $gpgf->fileRead($readfilepath, $gnupgid, $passphrase);
-                #            if ( is_string($r[0]) ) {
-                if ( is_string($outstr) ) {
-                    #               $tmpentries = $fpm2Xml->parseXmlGetNthStringWithP($r[0], $n);
-                    $tmpentries = $fpm2Xml->parseXmlGetNthStringWithP($outstr, $n);
+                if ( is_string($r[0]) ) {
+                #if ( is_string($outstr) ) {
+                    $tmpentries = $fpm2Xml->parseXmlGetNthStringWithP($r[0], $n);
+#                    $tmpentries = $fpm2Xml->parseXmlGetNthStringWithP($outstr, $n);
                     
                     if (count($tmpentries) < 1 ) {
                         array_push($error_messages,'File content is vague. No password entry.');

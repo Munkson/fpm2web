@@ -25,6 +25,7 @@ $appTitle = 'FPM2 password entry list';
 	<th>Title</th>
 	<th>Category</th>
 	<th>User</th>
+	<th colspan="2">Edit Operation</th>
 	</tr>
 <?php
     $imax = count($entries['title']);
@@ -36,10 +37,26 @@ $appTitle = 'FPM2 password entry list';
 	<td><form action="open_element.php" method="POST">
         <input type="hidden" name="keyid" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>">
         <input type="hidden" name="n" value="<?= htmlspecialchars($i, ENT_HTML5, "UTF-8") ?>">
-        <input type="submit" name="submit" value="open">
+        <input type="submit" name="submit" value="Open">
+        </form></td>
+	<td><form action="open_insert_entry_form.php" method="POST">
+        <input type="hidden" name="keyid" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>">
+        <input type="hidden" name="n" value="<?= htmlspecialchars($i, ENT_HTML5, "UTF-8") ?>">
+        <input type="submit" name="submit" value="Insert">
         </form></td>
 	</tr>
 <?php } ?>
+	<tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+	<td></td>
+	<td><form action="open_insert_entry_form.php" method="POST">
+        <input type="hidden" name="keyid" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>">
+        <input type="hidden" name="n" value="<?= htmlspecialchars($imax, ENT_HTML5, "UTF-8") ?>">
+        <input type="submit" name="submit" value="Insert">
+        </form></td>
+	</tr>
 	</table>
 </div>
 <hr>

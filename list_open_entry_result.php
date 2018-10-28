@@ -74,14 +74,29 @@ if(is_null($showpw)) {
       <dt><label for="keyid">GnuPG Key ID:</label></dt><dd><input type="text" name="keyid" size="40" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>" onfocus="clearForm();"></dd>
           <dt></dt><dd>After the form submission, please type your passphrase when your GnuPG key agent brings you up a passphrase entry form.</dd>
       </dl>
-    <input type="hidden" name="title" size="40" value="<?= htmlspecialchars($a['title'], ENT_HTML5, 'UTF-8') ?>" >
-    <input type="hidden" name="category" size="40" value="<?= htmlspecialchars($a['category'], ENT_HTML5, 'UTF-8') ?>" >
-    <input type="hidden" name="user" size="40" value="<?= htmlspecialchars($a['user'], ENT_HTML5, 'UTF-8') ?>" >
-    <input type="hidden" name="n" size="40" value="<?= htmlspecialchars($n, ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="title" value="<?= htmlspecialchars($a['title'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="category" value="<?= htmlspecialchars($a['category'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="user" value="<?= htmlspecialchars($a['user'], ENT_HTML5, 'UTF-8') ?>" >
+    <input type="hidden" name="n" value="<?= htmlspecialchars($n, ENT_HTML5, 'UTF-8') ?>" >
       <input type="submit" name="submit" value="Edit" >
       </form>
       </div>
 
+<hr>
+          <h3 class="delete_guide">If you want to delete this entry:</h3><span> push the "Delete" Button.</span>
+     <div class="inputform">
+      <form action="open_delete_entry_form.php" method="POST" id="update_form">
+      <dl>
+      <dt><label for="keyid">GnuPG Key ID:</label></dt><dd><input type="text" name="keyid" size="40" value="<?= htmlspecialchars($gnupgid, ENT_HTML5, "UTF-8") ?>" onfocus="clearForm();"></dd>
+      </dl>
+      <input type="submit" name="submit" value="Delete" >
+<input type="hidden" name="title" value="<?= htmlspecialchars($a['title'], ENT_HTML5, "UTF-8") ?>" >
+<input type="hidden" name="user" value="<?= htmlspecialchars($a['user'], ENT_HTML5, "UTF-8") ?>" >
+<input type="hidden" name="n" value="<?= htmlspecialchars($n, ENT_HTML5, 'UTF-8') ?>" >
+      </form>
+    </div>
+
+          
 <?php include 'footer.php'?>
  </body>
 </html>

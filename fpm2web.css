@@ -12,6 +12,10 @@ h2.software_function {
     display: inline-block;
     padding-left: 10px;
 }
+h3.delete_guide {
+    display: inline-block;
+    padding-left: 10px;
+}
 
 div.inputform {
     width: 80%;
