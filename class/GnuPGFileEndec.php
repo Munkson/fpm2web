@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2018 Hiroshi Kubo <kurigadani.hiroshi@gmail.com>, all rights reserved.
+ * Copyright 2018 Hiroshi Kubo <gdevmjc@gmail.com>, all rights reserved.
  * GnuPG File Encryption- Decryption
  */
 class GnuPGFileEndec

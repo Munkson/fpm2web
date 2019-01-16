@@ -1,7 +1,7 @@
 <?php
 /**
  * Open delete entry form
- * Copyright 2018 Hiroshi Kubo <kurigadani.hiroshi@gmail.com>, all rights reserved.
+ * Copyright 2018 Hiroshi Kubo <gdevmjc@gmail.com>, all rights reserved.
  */
 /* Section: class loading */
 include 'class/Fpm2Xml.php';
